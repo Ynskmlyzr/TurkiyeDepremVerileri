@@ -40,6 +40,7 @@ class EarthQuakeListFragment : Fragment() {
         binding.apply {
             earthQuakeListViewModel.getEarthQuakeList()
 
+
             earthQuakeListViewModel.earthQuakeListLiveData.observe(viewLifecycleOwner){
                 it.result?.let {
                     tempEarthQuakeList = it
@@ -47,8 +48,11 @@ class EarthQuakeListFragment : Fragment() {
                     earthQuakeListAdapter.setEarthQuakeList(it)
                 }
             }
-
-            rvEarthQuekaList.adapter = EarthQuakeListAdapter()
+            swipe.setOnRefreshListener {
+                swipe.isRefreshing = false
+                progresBarList.visibility = View.VISIBLE
+                earthQuakeListViewModel.getEarthQuakeList()
+            }
         }
     }
 }

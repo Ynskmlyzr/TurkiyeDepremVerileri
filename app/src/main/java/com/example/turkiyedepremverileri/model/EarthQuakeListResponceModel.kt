@@ -9,22 +9,42 @@ class EarthQuakeListResponceModel{
     @SerializedName("status")
     var status: Boolean? = null
 
-    data class Result(
-        @SerializedName("coordinates")
-        var coordinates: List<Double?>? = null,
-        @SerializedName("date")
-        var date: String? = null,
-        @SerializedName("depth")
-        var depth: Double? = null,
-        @SerializedName("lat")
-        var lat: Double? = null,
-        @SerializedName("lng")
-        var lng: Double? = null,
-        @SerializedName("lokasyon")
-        var lokasyon: String? = null,
-        @SerializedName("mag")
-        var mag: Double? = null,
-        @SerializedName("title")
-        var title: String? = null
+     data class Result(
+         val _id: String,
+         val created_at: Int,
+         val date: String,
+         val date_time: String,
+         val depth: Double,
+         val earthquake_id: String,
+         val geojson: Geojson,
+         val location_properties: LocationProperties,
+         val location_tz: String,
+         val mag: Double,
+         val provider: String,
+         val rev: String,
+         val title: String
     )
+
+    data class Geojson(
+        val coordinates: List<Double>,
+        val type: String
+    )
+
+    data class Coordinates(
+        val coordinates: List<Double>,
+        val type: String
+    )
+
+    data class LocationProperties(
+        val airports: List<Airport>
+    )
+
+    data class Airport(
+        val code: String,
+        val coordinates: Coordinates,
+        val distance: Double,
+        val name: String
+    )
+
+
 }

@@ -48,7 +48,8 @@ class MapFragment : Fragment() {
         earthQuakeListViewModel.earthQuakeListLiveData.observe(viewLifecycleOwner){ response->
             response?.result?.let {
                 it.forEach {
-                    latLongList.add(LatLongData(it.title, it.lat, it.lng, it.mag))
+                    latLongList.add(LatLongData(it.title, it.geojson.coordinates.get(1), it.geojson.coordinates.get(0), it.mag))
+                    latLongList.size
                 }
             }
         }

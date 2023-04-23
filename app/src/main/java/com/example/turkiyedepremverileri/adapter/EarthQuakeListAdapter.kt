@@ -28,6 +28,7 @@ class EarthQuakeListAdapter() : RecyclerView.Adapter<EarthQuakeListAdapter.Earth
                         }
                     }
                     tvEarthQuekaMag.text = EarthQuekaList.mag.toString()
+                    tvEarthQuekaDate.text = EarthQuekaList.date
                 }
             }
         }

@@ -15,18 +15,22 @@ class EarthQuakeListViewModel (application: Application) : BaseViewModel(applica
     val earthQuakeService = EarthQuakeService()
     var earthQuakeListLiveData: MutableLiveData<EarthQuakeListResponceModel> = MutableLiveData()
     var errorLiveData: MutableLiveData<String> = MutableLiveData()
+    var listLoading = MutableLiveData<Boolean>()
 
     fun getEarthQuakeList(){
+        listLoading.postValue(true)
         earthQuakeService.getEarthQuakeList()
             .subscribeOn(Schedulers.newThread())
             .subscribeWith(object : DisposableSingleObserver<EarthQuakeListResponceModel>() {
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun onSuccess(earthQuakeList: EarthQuakeListResponceModel) {
                     earthQuakeListLiveData.postValue(earthQuakeList)
+                    listLoading.postValue(false)
                 }
                 override fun onError(e: Throwable) {
                     e.printStackTrace()
                     errorLiveData.postValue(e.message)
+                    listLoading.postValue(false)
                 }
             })
     }
